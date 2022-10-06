@@ -62,7 +62,7 @@ php <filename>
 This however would need you to quit and re-run this script everytime you make a change to your Leaf app. To solve this problem, we've added a watch script to Leaf CLI. You can run your Eien based apps like this:
 
 ```sh
-leaf serve <filename> --watch
+leaf serve <filename>
 ```
 
 ## Contributing
