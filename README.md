@@ -37,7 +37,7 @@ When serving Leaf apps with Eien, you gain additional performance improvements d
 
 ## Installation
 
-You can easily install Leaf Viewi using the [Leaf CLI](https://cli.leafphp.dev):
+You can easily install Eien using the [Leaf CLI](https://cli.leafphp.dev):
 
 ```sh
 leaf install eien
@@ -51,7 +51,7 @@ composer require leafs/eien
 
 ## Basic Usage
 
-After installing the module,
+Just like with the rest of Leaf, Eien is built to work out of the box without configuring anything or writing any extra code. Once Leaf detects Eien, it will automatically set everything up for you.
 
 ## Contributing
 
