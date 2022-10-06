@@ -24,16 +24,25 @@ class Server {
   }
 
   /**
+   * Configure the server
+   */
+  public function config(array $config)
+  {
+    $this->http->set($config);
+    return $this;
+  }
+
+  /**
    * Wrap your Leaf application with Eien
    * 
-   * @param \Leaf\App $The leaf application to serve
+   * @param callable $runApp Run the leaf app and return it's data
    */
-  public function wrap($app)
+  public function wrap($runApp)
   {
-    $this->http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Response $response) use($app) {
-      $adapter = new Adapter($app);
+    $this->http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Response $response) use($runApp) {
+      $adapter = new Adapter();
       $adapter->intercept($request, $response);
-      $adapter->process();
+      $adapter->process($runApp());
     });
 
     return $this;
