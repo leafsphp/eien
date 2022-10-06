@@ -9,16 +9,8 @@ namespace Leaf\Eien;
  */
 class Adapter
 {
-  /**@var \Leaf\App */
-  protected $application;
-
   protected $request;
   protected $response;
-
-  public function __construct($application)
-  {
-    $this->application = $application;
-  }
 
   public function intercept(\Swoole\Http\Request $request, \Swoole\Http\Response $response)
   {
@@ -32,12 +24,15 @@ class Adapter
     return $this;
   }
 
-  public function process()
+  public function process($appData)
   {
-    \ob_start();
-    $this->application->run();
-    $output = ob_get_clean();
+    $headers = $appData['headers'];
+    $body = $appData['body'];
 
-    $this->response->end($output);
+    foreach ($headers as $key => $value) {
+      $this->response->header($key, $value);
+    }
+
+    $this->response->end($body);
   }
 }
