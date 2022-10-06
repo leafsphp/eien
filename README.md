@@ -53,6 +53,18 @@ composer require leafs/eien
 
 Just like with the rest of Leaf, Eien is built to work out of the box without configuring anything or writing any extra code. Once Leaf detects Eien, it will automatically set everything up for you.
 
+To run your app, you will need to open your project root file as a PHP script. You can do this with:
+
+```sh
+php <filename>
+```
+
+This however would need you to quit and re-run this script everytime you make a change to your Leaf app. To solve this problem, we've added a watch script to Leaf CLI. You can run your Eien based apps like this:
+
+```sh
+leaf serve <filename> --watch
+```
+
 ## Contributing
 
 We are glad to have you. All contributions are welcome! To get started, familiarize yourself with our [contribution guide](https://leafphp.dev/community/contributing.html) and you'll be ready to make your first pull request 🚀.
