@@ -26,8 +26,8 @@ class Adapter
 
   public function process($appData)
   {
-    $headers = $appData['headers'];
-    $body = $appData['body'];
+    $headers = $appData['headers'] ?? [];
+    $body = $appData['body'] ?? '';
 
     foreach ($headers as $key => $value) {
       $this->response->header($key, $value);
