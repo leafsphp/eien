@@ -1,5 +1,5 @@
 {
-  "name": "leafs/viewi",
+  "name": "leafs/eien",
   "description": "Viewi integration for Leaf PHP",
   "keywords": [
     "leafphp",
@@ -8,7 +8,7 @@
     "php",
     "framework"
   ],
-  "homepage": "https://leafphp.dev/modules/",
+  "homepage": "https://leafphp.dev/modules/eien",
   "type": "library",
   "license": "MIT",
   "authors": [
