@@ -1,9 +1,10 @@
 {
   "name": "leafs/eien",
-  "description": "Viewi integration for Leaf PHP",
+  "description": "High-speed, high-performance server for your Leaf apps.",
   "keywords": [
     "leafphp",
-    "viewi",
+    "swoole",
+    "async",
     "leaf",
     "php",
     "framework"
