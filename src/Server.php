@@ -49,7 +49,10 @@ class Server {
 
       $adapter->process([
         'body' => $data,
-        'headers' => \Leaf\Config::get('response.data')['headers'] ?? [],
+        'headers' => \Leaf\Config::get('response.headers') ?? [],
+        'cookies' => \Leaf\Config::get('response.cookies') ?? [],
+        'session' => \Leaf\Config::get('response.session') ?? [],
+        'context' => \Leaf\Config::get('response.context') ?? [],
       ]);
     });
 
