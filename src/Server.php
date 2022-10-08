@@ -42,7 +42,15 @@ class Server {
     $this->http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Response $response) use($runApp) {
       $adapter = new Adapter();
       $adapter->intercept($request, $response);
-      $adapter->process($runApp());
+
+      ob_start();
+      call_user_func($runApp);
+      $data = ob_get_clean();
+
+      $adapter->process([
+        'body' => $data,
+        'headers' => \Leaf\Config::get('response.data')['headers'] ?? [],
+      ]);
     });
 
     return $this;
@@ -51,7 +59,11 @@ class Server {
   public function listen(callable $callback = null)
   {
     $this->http->on("start", function (\Swoole\Http\Server $server) use ($callback) {
-      if ($callback) $callback($server);
+      if ($callback) {
+        $callback($server);
+      } else {
+        echo "Leaf Eien server started on http://127.0.0.1:{$server->port}";
+      }
     });
 
     $this->http->start();
