@@ -5,7 +5,7 @@
   <br>
 </p>
 
-<h1 align="center">Leaf Eien Server</h1>
+<h1 align="center">[WIP] Leaf Eien Server</h1>
 
 <p align="center">
 	<a href="https://packagist.org/packages/leafs/eien"
