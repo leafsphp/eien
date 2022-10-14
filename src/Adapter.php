@@ -24,6 +24,13 @@ class Adapter
     return $this;
   }
 
+  public function forceStateReset()
+  {
+    \Leaf\Config::set('response.headers', []);
+    \Leaf\Config::set('response.cookies', []);
+    \Leaf\Config::set('response.context', []);
+  }
+
   public function process($appData)
   {
     $headers = $appData['headers'] ?? [];
