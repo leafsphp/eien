@@ -65,7 +65,7 @@ class Server {
       if ($callback) {
         $callback($server);
       } else {
-        echo "Leaf Eien server started on http://127.0.0.1:{$server->port}";
+        echo "Leaf Eien server started on http://127.0.0.1:{$server->port}\n";
       }
     });
 
