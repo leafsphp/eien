@@ -27,10 +27,15 @@ class Adapter
   public function process($appData)
   {
     $headers = $appData['headers'] ?? [];
+    $cookies = $appData['cookies'] ?? [];
     $body = $appData['body'] ?? '';
 
     foreach ($headers as $key => $value) {
       $this->response->header($key, $value);
+    }
+
+    foreach ($cookies as $cookie) {
+      $this->response->setcookie(...$cookie);
     }
 
     $this->response->end($body);
