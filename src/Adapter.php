@@ -22,6 +22,8 @@ class Adapter
       $_COOKIE[$key] = $value;
     }
 
+    \Leaf\Config::set('request.headers', $request->header);
+
     $this->request = $request;
     $this->response = $response;
 
@@ -30,6 +32,7 @@ class Adapter
 
   public function forceStateReset()
   {
+    \Leaf\Config::set('request.headers', []);
     \Leaf\Config::set('response.headers', []);
     \Leaf\Config::set('response.cookies', []);
     \Leaf\Config::set('response.context', []);
@@ -49,6 +52,7 @@ class Adapter
       $this->response->setcookie(...$cookie);
     }
 
+    $this->forceStateReset();
     $this->response->end($body);
   }
 }
