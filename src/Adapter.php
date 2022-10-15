@@ -18,6 +18,10 @@ class Adapter
       $_SERVER[strtoupper($key)] = $value;
     }
 
+    foreach ($request->cookie as $key => $value) {
+      $_COOKIE[$key] = $value;
+    }
+
     $this->request = $request;
     $this->response = $response;
 
