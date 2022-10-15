@@ -18,8 +18,11 @@ class Adapter
       $_SERVER[strtoupper($key)] = $value;
     }
 
-    foreach ($request->cookie as $key => $value) {
-      $_COOKIE[$key] = $value;
+    $_COOKIE = [];
+    if (is_array($request->cookie)) {
+      foreach ($request->cookie as $key => $value) {
+        $_COOKIE[$key] = $value;
+      }
     }
 
     \Leaf\Config::set('request.headers', $request->header);
@@ -52,7 +55,7 @@ class Adapter
       $this->response->setcookie(...$cookie);
     }
 
-    $this->forceStateReset();
     $this->response->end($body);
+    $this->forceStateReset();
   }
 }
