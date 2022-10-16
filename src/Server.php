@@ -53,6 +53,7 @@ class Server {
         'cookies' => \Leaf\Config::get('response.cookies') ?? [],
         'session' => \Leaf\Config::get('response.session') ?? [],
         'context' => \Leaf\Config::get('response.context') ?? [],
+        'redirect' => \Leaf\Config::get('response.redirect') ?? null,
       ]);
     });
 

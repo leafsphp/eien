@@ -56,6 +56,11 @@ class Adapter
     }
 
     $this->forceStateReset();
-    $this->response->end($body);
+    
+    if ($appData['redirect']) {
+      $this->response->redirect(...$appData['redirect']);
+    } else {
+      $this->response->end($body);
+    }
   }
 }
