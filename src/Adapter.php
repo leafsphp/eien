@@ -47,15 +47,15 @@ class Adapter
     $cookies = $appData['cookies'] ?? [];
     $body = $appData['body'] ?? '';
 
-    foreach ($headers as $key => $value) {
-      $this->response->header($key, $value);
+    foreach ($headers as $hkey => $hvalue) {
+      $this->response->header($hkey, $hvalue);
     }
 
-    foreach ($cookies as $cookie) {
-      $this->response->setcookie(...$cookie);
+    foreach ($cookies as $ckey => $cvalue) {
+      $this->response->setcookie($ckey, $cvalue[0], $cvalue[1]);
     }
 
-    $this->response->end($body);
     $this->forceStateReset();
+    $this->response->end($body);
   }
 }
