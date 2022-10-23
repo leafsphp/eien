@@ -38,29 +38,25 @@ class Adapter
     \Leaf\Config::set('request.headers', []);
     \Leaf\Config::set('response.headers', []);
     \Leaf\Config::set('response.cookies', []);
-    \Leaf\Config::set('response.context', []);
+    \Leaf\Config::set('response.redirect', null);
   }
 
-  public function process($appData)
+  public function process($body)
   {
-    $headers = $appData['headers'] ?? [];
-    $cookies = $appData['cookies'] ?? [];
-    $body = $appData['body'] ?? '';
-
-    foreach ($headers as $hkey => $hvalue) {
+    foreach (\Leaf\Config::get('response.headers') ?? [] as $hkey => $hvalue) {
       $this->response->header($hkey, $hvalue);
     }
 
-    foreach ($cookies as $ckey => $cvalue) {
+    foreach (\Leaf\Config::get('response.cookies') ?? [] as $ckey => $cvalue) {
       $this->response->setcookie($ckey, $cvalue[0], $cvalue[1]);
     }
 
-    $this->forceStateReset();
-    
-    if ($appData['redirect']) {
-      $this->response->redirect(...$appData['redirect']);
+    if (\Leaf\Config::get('response.redirect')) {
+      $this->response->redirect(...\Leaf\Config::get('response.redirect'));
     } else {
-      $this->response->end($body);
+      $this->response->end($body ?? '');
     }
+
+    $this->forceStateReset();
   }
 }
