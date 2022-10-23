@@ -32,6 +32,16 @@ class Server {
     return $this;
   }
 
+  public function on(string $event, callable $callback)
+  {
+    if ($event === 'request') {
+      return;
+    }
+
+    $this->http->on($event, $callback);
+    return $this;
+  }
+
   /**
    * Wrap your Leaf application with Eien
    * 
@@ -44,17 +54,14 @@ class Server {
       $adapter->intercept($request, $response);
 
       ob_start();
-      call_user_func($runApp);
-      $data = ob_get_clean();
+      
+      if ($runApp instanceof \Leaf\App) {
+        $runApp->run();
+      } else {
+        $runApp();
+      }
 
-      $adapter->process([
-        'body' => $data,
-        'headers' => \Leaf\Config::get('response.headers') ?? [],
-        'cookies' => \Leaf\Config::get('response.cookies') ?? [],
-        'session' => \Leaf\Config::get('response.session') ?? [],
-        'context' => \Leaf\Config::get('response.context') ?? [],
-        'redirect' => \Leaf\Config::get('response.redirect') ?? null,
-      ]);
+      $adapter->process(ob_get_clean());
     });
 
     return $this;
@@ -62,7 +69,7 @@ class Server {
 
   public function listen(callable $callback = null)
   {
-    $this->http->on("start", function (\Swoole\Http\Server $server) use ($callback) {
+    $this->http->on('start', function (\Swoole\Http\Server $server) use ($callback) {
       if ($callback) {
         $callback($server);
       } else {
