@@ -12,25 +12,26 @@ class Http
     protected $request;
     protected $response;
 
-    public function intercept(array $config): self
+    public function intercept($request, $response): self
     {
-        $request = $config['request'];
-
         foreach ($request->server as $key => $value) {
             $_SERVER[strtoupper($key)] = $value;
         }
 
         $_COOKIE = [];
-        if (is_array($request->cookie)) {
-            foreach ($request->cookie as $key => $value) {
-                $_COOKIE[$key] = $value;
-            }
+        foreach ($request->cookie ?? [] as $key => $value) {
+            $_COOKIE[$key] = $value;
+        }
+
+        $_GET = [];
+        foreach ($request->get ?? [] as $key => $value) {
+            $_GET[$key] = $value;
         }
 
         \Leaf\Config::set('request.headers', $request->header);
 
         $this->request = $request;
-        $this->response = $config['response'];
+        $this->response = $response;
 
         return $this;
     }
