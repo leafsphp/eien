@@ -11,7 +11,7 @@ if (!function_exists('eien') && class_exists('Leaf\Config')) {
      * @param string $host The host to use
      * @param string $port The port to use
      */
-    function server(string $host = '127.0.0.1', int $port = 8080): Server
+    function server(string $host = '127.0.0.1', int $port = 9501): Server
     {
         $eien = Leaf\Config::get('eien')['instance'] ?? null;
 
