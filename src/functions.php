@@ -9,7 +9,7 @@ if (!function_exists('eien') && class_exists('Leaf\Config')) {
      * Return an instance of Eien Server
      * 
      * @param string $host The host to use
-     * @param string $port The port to use
+     * @param int $port The port to use
      */
     function server(string $host = '127.0.0.1', int $port = 9501): Server
     {
