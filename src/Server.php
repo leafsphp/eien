@@ -36,13 +36,13 @@ class Server
     /**
      * Configure the server
      */
-    public function config(array $config)
+    public function config(array $config): Server
     {
         $this->server->set($config);
         return $this;
     }
 
-    public function on(string $event, callable $callback)
+    public function on(string $event, callable $callback): Server
     {
         if ($event === 'request' || $event === 'start') {
             return $this;
@@ -55,9 +55,9 @@ class Server
     /**
      * Wrap your Leaf application with Eien
      * 
-     * @param callable $runApp Run the leaf app and return it's data
+     * @param mixed $runApp Run the leaf app and return it's data
      */
-    public function wrap($runApp)
+    public function wrap($runApp): Server
     {
         $this->server->on('request', function ($request, $response) use ($runApp) {
             $adapter = new HttpAdapter();
@@ -91,7 +91,9 @@ class Server
             } else {
                 isset($events['*']) ?
                     $events['*']($server, $frame) :
-                    json_encode(['error' => 'No event handler found']);
+                    call_user_func(function () {
+                        echo json_encode(['error' => 'No event handler found']);
+                    });
             }
 
             $server->push($frame->fd, ob_get_clean());
