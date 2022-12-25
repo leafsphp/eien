@@ -61,10 +61,7 @@ class Server
     {
         $this->server->on('request', function ($request, $response) use ($runApp) {
             $adapter = new HttpAdapter();
-            $adapter->intercept([
-                'request' => $request,
-                'response' => $response
-            ]);
+            $adapter->intercept($request, $response);
 
             ob_start();
 
