@@ -13,13 +13,12 @@ if (!function_exists('eien') && class_exists('Leaf\Config')) {
      */
     function server(string $host = '127.0.0.1', int $port = 9501): Server
     {
-        $eien = Leaf\Config::get('eien')['instance'] ?? null;
-
-        if (!$eien) {
-            $eien = new Server($host, $port);
-            Leaf\Config::set('eien.instance', $eien);
+        if (!(\Leaf\Config::getStatic('eien'))) {
+            \Leaf\Config::singleton('eien', function () {
+                return new Server();
+            });
         }
 
-        return $eien;
+        return \Leaf\Config::get('eien');
     }
 }
