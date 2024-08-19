@@ -80,8 +80,8 @@ class Server
             WebSocketAdapter::$globalServer = $request->server ?? [];
         });
 
-        $this->server->on('message', function (WebSocketServer $server,  Frame $frame) {
-            $events = Config::get('eien.events');
+        $this->server->on('message', function (WebSocketServer $server, Frame $frame) {
+            $events = Config::getStatic('eien.events');
             WebSocketAdapter::intercept(['server' => $server, 'frame' => $frame]);
 
             ob_start();

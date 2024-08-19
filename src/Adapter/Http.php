@@ -46,16 +46,16 @@ class Http
 
     public function process($body): void
     {
-        foreach (\Leaf\Config::get('response.headers') ?? [] as $hkey => $hvalue) {
+        foreach (\Leaf\Config::getStatic('response.headers') ?? [] as $hkey => $hvalue) {
             $this->response->header($hkey, $hvalue);
         }
 
-        foreach (\Leaf\Config::get('response.cookies') ?? [] as $ckey => $cvalue) {
+        foreach (\Leaf\Config::getStatic('response.cookies') ?? [] as $ckey => $cvalue) {
             $this->response->setcookie($ckey, $cvalue[0], $cvalue[1]);
         }
 
-        if (\Leaf\Config::get('response.redirect')) {
-            $this->response->redirect(...\Leaf\Config::get('response.redirect'));
+        if (\Leaf\Config::getStatic('response.redirect')) {
+            $this->response->redirect(...\Leaf\Config::getStatic('response.redirect'));
         } else {
             $this->response->end($body ?? '');
         }
